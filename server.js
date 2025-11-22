@@ -5,7 +5,9 @@ const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+
+// Render define a porta via variável de ambiente
+const PORT = process.env.PORT || 3000;
 
 // Cria a pasta uploads se não existir
 if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
@@ -14,7 +16,7 @@ if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
-    // Salva com timestamp e um número aleatório para evitar sobrescrever
+    // Salva com timestamp e número aleatório para evitar sobrescrever
     const unique = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, unique + path.extname(file.originalname));
   }
@@ -31,5 +33,5 @@ app.post('/upload', upload.single('photo'), (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
