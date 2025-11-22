@@ -32,6 +32,10 @@ app.post('/upload', upload.single('photo'), (req, res) => {
   res.json({ message: 'Foto recebida com sucesso!' });
 });
 
+app.get('/', (req, res) => {
+  res.send('Servidor está rodando!');
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
